@@ -1,36 +1,28 @@
 package com.github.ant2.exceedvote.model.domain;
 
-import java.util.Calendar;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.*;
 
 /**
  * The Ballot vote for the specific project on a specific criterion.
  * 
  * @author Thiwat Rongsirigul (Leo Aiolia)
  */
-@Entity
-public class Ballot extends Model {
-
-	@Temporal(value = TemporalType.TIMESTAMP) private Calendar votedAt;
-
-	@ManyToOne private Voter voter;
-
-	@ManyToOne private Criterion criterion;
-
-	@ManyToOne private Project project;
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Ballot {
+	@XmlElement(name="user")
+	private Voter voter;
+	@XmlElement(name="criterion")
+	private Criterion criterion;
+	@XmlElement(name="contestant")
+	private Project project;
 	private int votes;
 
 	/**
 	 * Constructs a Ballot.
 	 */
 	public Ballot() {
-		votedAt = Calendar.getInstance();
+		
 	}
 
 	/**
@@ -111,25 +103,6 @@ public class Ballot extends Model {
 	}
 
 	/**
-	 * Returns date and time of the submitted vote.
-	 * 
-	 * @return votedAt date and time of voting.
-	 */
-	public Calendar getVotedAt() {
-		return votedAt;
-	}
-
-	/**
-	 * Sets the date and time of the submitted vote.
-	 * 
-	 * @param votedAt
-	 *            date and time of voting.
-	 */
-	public void setVotedAt(Calendar votedAt) {
-		this.votedAt = votedAt;
-	}
-
-	/**
 	 * Returns the message shows the voter, project, and criterion.
 	 */
 	@Override
@@ -156,48 +129,4 @@ public class Ballot extends Model {
 	public void setVotes(int votes) {
 		this.votes = votes;
 	}
-
-	@Id @GeneratedValue protected Integer id;
-
-	/**
-	 * Returns the Ballot entity ID.
-	 * 
-	 * @return id the Ballot entity ID.
-	 */
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	 * Sets a Ballot entity ID.
-	 * 
-	 * @param id
-	 *            the Ballot entity ID that is set.
-	 */
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		Ballot other = (Ballot) obj;
-		if (id == null) {
-			if (other.id != null) return false;
-		} else if (!id.equals(other.id)) return false;
-		return true;
-	}
-
 }

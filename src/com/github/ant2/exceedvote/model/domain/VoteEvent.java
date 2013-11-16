@@ -2,14 +2,7 @@ package com.github.ant2.exceedvote.model.domain;
 
 import java.util.Calendar;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
-public class VoteEvent extends Model {
+public class VoteEvent {
 
 	public interface Part {
 		VoteEvent getVoteEvent();
@@ -17,11 +10,11 @@ public class VoteEvent extends Model {
 
 	private String name;
 
-	@Temporal(value = TemporalType.TIMESTAMP) private Calendar startTime;
+	private Calendar startTime;
 
-	@Temporal(value = TemporalType.TIMESTAMP) private Calendar finishTime;
+	private Calendar finishTime;
 
-	@Temporal(value = TemporalType.TIMESTAMP) private Calendar announcementTime;
+	private Calendar announcementTime;
 
 	public String getName() {
 		return name;
@@ -69,11 +62,6 @@ public class VoteEvent extends Model {
 		return voter;
 	}
 
-	// TODO test code
-	public Commissioner createCommissioner(String name) {
-		return new Commissioner(name);
-	}
-
 	public Criterion createCriterion(String string) {
 		Criterion criterion = createCriterion();
 		criterion.setName(string);
@@ -95,17 +83,5 @@ public class VoteEvent extends Model {
 	@Override
 	public String toString() {
 		return name;
-	}
-
-	@Id @GeneratedValue protected Integer id;
-
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
 	}
 }

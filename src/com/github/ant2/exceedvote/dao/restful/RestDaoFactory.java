@@ -1,10 +1,8 @@
 package com.github.ant2.exceedvote.dao.restful;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.github.ant2.exceedvote.dao.BallotDao;
-import com.github.ant2.exceedvote.dao.CommissionerDao;
 import com.github.ant2.exceedvote.dao.CriterionDao;
 import com.github.ant2.exceedvote.dao.DaoFactory;
 import com.github.ant2.exceedvote.dao.EventDao;
@@ -12,9 +10,7 @@ import com.github.ant2.exceedvote.dao.ProjectDao;
 import com.github.ant2.exceedvote.dao.UserDao;
 import com.github.ant2.exceedvote.dao.VoterDao;
 import com.github.ant2.exceedvote.model.domain.Ballot;
-import com.github.ant2.exceedvote.model.domain.Commissioner;
 import com.github.ant2.exceedvote.model.domain.Criterion;
-import com.github.ant2.exceedvote.model.domain.Model;
 import com.github.ant2.exceedvote.model.domain.Project;
 import com.github.ant2.exceedvote.model.domain.User;
 import com.github.ant2.exceedvote.model.domain.VoteEvent;
@@ -27,7 +23,6 @@ public class RestDaoFactory implements DaoFactory{
 	private ProjectDao projectDao;
 	private BallotDao ballotDao;
 	private UserDao userDao;
-	private CommissionerDao commissionDao;
 
 	public RestDaoFactory() {
 		eventDao = new RestEventDao();
@@ -36,114 +31,137 @@ public class RestDaoFactory implements DaoFactory{
 		projectDao = new RestProjectDao();
 		ballotDao = new RestBallotDao();
 		userDao = new RestUserDao();
-		commissionDao = new RestCommissionerDao();
 	}
 
-	private class RestDao<T extends Model> {
-		protected String URL = "";
-		protected int PORT = 8000;
-
-		public void save(T t) {
-
-		}
-
-		public List<T> findAll() {
-			return new ArrayList<T>();
-		}
-
-		public T find(int id) {
+	private class RestEventDao implements EventDao {
+		@Override
+		public List<VoteEvent> findAll() {
+			// TODO Auto-generated method stub
 			return null;
 		}
 
-		public void remove(T t) {
-
+		@Override
+		public void save(VoteEvent newEvent) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 
-	private class VoteEventPartDao<T extends Model & VoteEvent.Part> extends
-	RestDao<T> {
-		public List<T> findAllByEvent(VoteEvent event) {
-			List<T> list = new ArrayList<T>();
-			for (T t : findAll()) {
-				if (t.getVoteEvent().equals(event)) {
-					list.add(t);
-				}
-			}
-			return list;
-		}
-	}
-
-	private class RestEventDao extends RestDao<VoteEvent> implements EventDao {
-
-	}
-
-	private class RestVoterDao extends RestDao<Voter> implements VoterDao {
+	private class RestVoterDao implements VoterDao {
 		@Override
 		public List<Voter> findAllByEvent(VoteEvent event) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void save(Voter voter) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public Voter find(int id) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<Voter> findAll() {
+			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public Voter findByUser(User u) {
+			// TODO Auto-generated method stub
 			return null;
 		}
 
+		@Override
+		public void remove(Voter voter) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
-	private class RestCriterionDao extends VoteEventPartDao<Criterion>
-	implements CriterionDao {
+	private class RestCriterionDao implements CriterionDao {
+		@Override
+		public void save(Criterion criterion) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public List<Criterion> findAllByEvent(VoteEvent event) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void remove(Criterion criterion) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
-	private class RestProjectDao extends VoteEventPartDao<Project> implements
-	ProjectDao {
+	private class RestProjectDao implements	ProjectDao {
+		@Override
+		public void save(Project project) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public List<Project> findAllByEvent(VoteEvent event) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void remove(Project project) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
-	private class RestBallotDao extends RestDao<Ballot> implements
-	BallotDao {
-
+	private class RestBallotDao implements BallotDao {
 		@Override
 		public List<Ballot> findAllByVoterAndCriterion(Voter voter,
 				Criterion criterion) {
-			List<Ballot> list = new ArrayList<Ballot>();
-			for (Ballot ballot : findAll()) {
-				if (ballot.getVoter().equals(voter)
-						&& ballot.getCriterion().equals(criterion)) {
-					list.add(ballot);
-				}
-			}
-			return list;
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void save(Ballot ballot) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void remove(Ballot ballot) {
+			// TODO Auto-generated method stub
+			
 		}
 
 		@Override
 		public List<Ballot> findAllByEvent(VoteEvent event) {
-			List<Ballot> list = new ArrayList<Ballot>();
-			for (Ballot ballot : findAll()) {
-				if (ballot.getCriterion().getVoteEvent() == event) {
-					list.add(ballot);
-				}
-			}
-			return list;
-		}
-	}
-
-	private class RestUserDao extends RestDao<User> implements UserDao {
-		@Override
-		public User findByUserName(String user) {
-			for (User u : findAll()) {
-				if (u.getUsername().equals(user)) return u;
-			}
+			// TODO Auto-generated method stub
 			return null;
 		}
-
 	}
 
-	private class RestCommissionerDao extends RestDao<Commissioner>
-	implements CommissionerDao {
+	private class RestUserDao implements UserDao {
 		@Override
-		public Commissioner findByUser(User user) {
-			for (Commissioner c : findAll()) {
-				if (c.getUser() == user) return c;
-			}
+		public void save(User user) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public User findByUserName(String user) {
+			// TODO Auto-generated method stub
 			return null;
 		}
 	}
@@ -177,10 +195,4 @@ public class RestDaoFactory implements DaoFactory{
 	public UserDao getUserDao() {
 		return userDao;
 	}
-
-	@Override
-	public CommissionerDao getCommissionerDao() {
-		return commissionDao;
-	}
-
 }

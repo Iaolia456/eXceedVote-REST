@@ -49,11 +49,4 @@ public interface DaoFactory {
 	 */
 	UserDao getUserDao();
 
-	/**
-	 * Return the CommissionerDao object.
-	 * 
-	 * @return CommissoionerDao object
-	 */
-	CommissionerDao getCommissionerDao();
-
 }

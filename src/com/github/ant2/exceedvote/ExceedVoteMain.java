@@ -5,8 +5,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.github.ant2.exceedvote.controller.LoginController;
 import com.github.ant2.exceedvote.dao.DaoFactory;
+import com.github.ant2.exceedvote.dao.restful.RestDaoFactory;
 import com.github.ant2.exceedvote.model.process.LoginProcess;
-import com.github.ant2.exceedvote.stub.StubDaoFactory;
 import com.github.ant2.exceedvote.util.UIUtility;
 import com.github.ant2.exceedvote.view.LoginWindow;
 
@@ -28,8 +28,7 @@ public class ExceedVoteMain {
 
 		UIUtility.setTheme();
 
-		StubDaoFactory sdf = new StubDaoFactory();
-		DaoFactory df = sdf;
+		DaoFactory df = new RestDaoFactory();
 
 		LoginProcess loginProcess = new LoginProcess(df);
 		LoginWindow window = new LoginWindow();

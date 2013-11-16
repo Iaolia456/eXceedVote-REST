@@ -1,26 +1,19 @@
 package com.github.ant2.exceedvote.model.domain;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  * The Voter that represents a person that can vote.
  * 
  * @author Thiwat Rongsirigul (Leo Aiolia)
  */
-@Entity
-public class Voter extends Model implements VoteEvent.Part {
+public class Voter implements VoteEvent.Part {
 
 	private String studentId;
 	private String name;
 
-	@OneToOne(cascade = CascadeType.ALL) private User user;
+	private User user;
 
-	@ManyToOne private VoteEvent voteEvent;
+	private VoteEvent voteEvent;
 
 	public Voter() {
 
@@ -93,36 +86,12 @@ public class Voter extends Model implements VoteEvent.Part {
 		return 3;
 	}
 
-	@Id @GeneratedValue protected Integer id;
-
-	/**
-	 * Returns the voter entity ID.
-	 * 
-	 * @return id the voter entity ID.
-	 */
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the entity ID for this voter.
-	 * 
-	 * @param id
-	 *            the voter entity ID that is going to be set.
-	 */
-	@Override
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	/**
 	 * Returns the message shows the voter's studentID, name, and entity ID.
 	 */
 	@Override
 	public String toString() {
-		return "Voter [studentId=" + studentId + ", name=" + name + ", id="
-				+ id + "]";
+		return "Voter [studentId=" + studentId + ", name=" + name + "]";
 	}
 
 	public void setUser(User user) {

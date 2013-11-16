@@ -1,6 +1,5 @@
 package com.github.ant2.exceedvote.model.process;
 
-import com.github.ant2.exceedvote.model.domain.Commissioner;
 import com.github.ant2.exceedvote.model.domain.User;
 import com.github.ant2.exceedvote.model.domain.Voter;
 
@@ -12,7 +11,6 @@ import com.github.ant2.exceedvote.model.domain.Voter;
 public class LoginResult {
 	private Status status;
 	private Voter voter;
-	private Commissioner commissioner;
 	private User.Role role;
 
 	/**
@@ -50,17 +48,6 @@ public class LoginResult {
 	}
 
 	/**
-	 * Sets the commissioner
-	 * 
-	 * @param commissioner
-	 *            the commissioner that is set
-	 */
-	public void setCommissioner(Commissioner commissioner) {
-		role = User.Role.COMMISSION;
-		this.commissioner = commissioner;
-	}
-
-	/**
 	 * Gets the status
 	 * 
 	 * @return the status
@@ -85,15 +72,6 @@ public class LoginResult {
 	 */
 	public Voter getVoter() {
 		return voter;
-	}
-
-	/**
-	 * Gets the commissioner
-	 * 
-	 * @return the commissioner
-	 */
-	public Commissioner getCommissioner() {
-		return commissioner;
 	}
 
 	@Override

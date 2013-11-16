@@ -5,14 +5,11 @@ import java.awt.event.ActionListener;
 
 import com.github.ant2.exceedvote.activity.controller.WelcomeActivity;
 import com.github.ant2.exceedvote.activity.view.WelcomeActivityView;
-import com.github.ant2.exceedvote.controller.admin.SelectEventController;
 import com.github.ant2.exceedvote.model.process.Context;
 import com.github.ant2.exceedvote.model.process.LoginProcess;
 import com.github.ant2.exceedvote.model.process.LoginResult;
-import com.github.ant2.exceedvote.model.process.admin.SelectEventProcess;
 import com.github.ant2.exceedvote.view.LoginWindow;
 import com.github.ant2.exceedvote.view.MainView;
-import com.github.ant2.exceedvote.view.admin.SelectEventWindow;
 import com.github.ant2.ui.activity.Activity;
 
 /**
@@ -97,16 +94,6 @@ public class LoginController {
 
 			activity = new WelcomeActivity(context, new WelcomeActivityView());
 			mainController.run(activity);
-			break;
-		}
-		case COMMISSION: {
-			SelectEventWindow view = new SelectEventWindow();
-			SelectEventProcess process = new SelectEventProcess(
-					this.process.getDaoFactory());
-			SelectEventController controller = new SelectEventController(
-					process, view);
-			controller.setOnLogoutAction(logoutAction);
-			controller.run();
 			break;
 		}
 		}
