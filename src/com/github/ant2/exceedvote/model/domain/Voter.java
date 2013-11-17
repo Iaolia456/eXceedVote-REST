@@ -11,8 +11,6 @@ public class Voter implements VoteEvent.Part {
 	private String studentId;
 	private String name;
 
-	private User user;
-
 	private VoteEvent voteEvent;
 
 	public Voter() {
@@ -92,13 +90,5 @@ public class Voter implements VoteEvent.Part {
 	@Override
 	public String toString() {
 		return "Voter [studentId=" + studentId + ", name=" + name + "]";
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public User getUser() {
-		return user;
 	}
 }

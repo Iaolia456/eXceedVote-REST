@@ -2,9 +2,7 @@
 package com.github.ant2.exceedvote.model.process;
 
 import com.github.ant2.exceedvote.dao.DaoFactory;
-import com.github.ant2.exceedvote.dao.UserDao;
 import com.github.ant2.exceedvote.dao.VoterDao;
-import com.github.ant2.exceedvote.model.domain.User;
 import com.github.ant2.exceedvote.model.domain.Voter;
 
 /**
@@ -14,7 +12,6 @@ import com.github.ant2.exceedvote.model.domain.Voter;
  */
 public class LoginProcess {
 	private DaoFactory sd;
-	private UserDao userDao;
 	private VoterDao voterDao;
 
 	/**
@@ -23,7 +20,6 @@ public class LoginProcess {
 	 */
 	public LoginProcess(DaoFactory sd) {
 		this.sd = sd;
-		userDao = sd.getUserDao();
 		voterDao = sd.getVoterDao();
 	}
 
@@ -36,17 +32,8 @@ public class LoginProcess {
 	 *            the user's password
 	 * @return the login result
 	 */
+	//TODO login code here
 	public LoginResult login(String user, String pass) {
-		User u = userDao.findByUserName(user);
-		if (u == null) return new LoginResult(LoginResult.Status.FAILURE);
-		if (u.verifyPassword(pass)) {
-			Voter v = voterDao.findByUser(u);
-			LoginResult result = new LoginResult(LoginResult.Status.SUCCESS);
-			if (v != null) {
-				result.setVoter(v);
-				return result;
-			}
-		}
 		return new LoginResult(LoginResult.Status.FAILURE);
 	}
 

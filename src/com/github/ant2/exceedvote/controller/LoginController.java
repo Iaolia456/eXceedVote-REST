@@ -80,23 +80,17 @@ public class LoginController {
 	}
 
 	private void startMain(LoginResult result) {
-		switch (result.getRole()) {
+		Context context = process.getContext(result);
 
-		case VOTER: {
-			Context context = process.getContext(result);
+		MainView mainView = new MainView();
+		MainController mainController = new MainController(context,
+				mainView);
+		Activity activity;
 
-			MainView mainView = new MainView();
-			MainController mainController = new MainController(context,
-					mainView);
-			Activity activity;
+		mainController.setOnLogoutAction(logoutAction);
 
-			mainController.setOnLogoutAction(logoutAction);
-
-			activity = new WelcomeActivity(context, new WelcomeActivityView());
-			mainController.run(activity);
-			break;
-		}
-		}
+		activity = new WelcomeActivity(context, new WelcomeActivityView());
+		mainController.run(activity);
 	}
 
 	private void resetField() {

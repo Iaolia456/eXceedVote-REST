@@ -2,7 +2,6 @@ package com.github.ant2.exceedvote.dao;
 
 import java.util.List;
 
-import com.github.ant2.exceedvote.model.domain.User;
 import com.github.ant2.exceedvote.model.domain.VoteEvent;
 import com.github.ant2.exceedvote.model.domain.Voter;
 
@@ -54,7 +53,6 @@ public interface VoterDao {
 	 *            the user to search
 	 * @return the voter
 	 */
-	Voter findByUser(User u);
 
 	void remove(Voter voter);
 

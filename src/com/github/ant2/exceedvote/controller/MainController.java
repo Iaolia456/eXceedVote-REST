@@ -85,6 +85,7 @@ public class MainController {
 
 	}
 
+	//TODO remaining time timer code here
 	private void updateRemainingTime() {
 		int remainingTime = (int) ((event.getFinishTime().getTimeInMillis() - System
 				.currentTimeMillis()) / 1000);

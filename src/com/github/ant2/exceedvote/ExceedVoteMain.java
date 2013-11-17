@@ -7,6 +7,8 @@ import com.github.ant2.exceedvote.controller.LoginController;
 import com.github.ant2.exceedvote.dao.DaoFactory;
 import com.github.ant2.exceedvote.dao.restful.RestDaoFactory;
 import com.github.ant2.exceedvote.model.process.LoginProcess;
+import com.github.ant2.exceedvote.model.server.Messenger;
+import com.github.ant2.exceedvote.model.server.Server;
 import com.github.ant2.exceedvote.util.UIUtility;
 import com.github.ant2.exceedvote.view.LoginWindow;
 
@@ -34,6 +36,9 @@ public class ExceedVoteMain {
 		LoginWindow window = new LoginWindow();
 
 		LoginController controller = new LoginController(loginProcess, window);
+		
+		Server server = new Server("APP_URL", 8888);
+		Messenger.setServer(server);
 		controller.run();
 
 	}

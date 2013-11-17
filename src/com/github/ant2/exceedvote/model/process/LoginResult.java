@@ -1,6 +1,5 @@
 package com.github.ant2.exceedvote.model.process;
 
-import com.github.ant2.exceedvote.model.domain.User;
 import com.github.ant2.exceedvote.model.domain.Voter;
 
 /**
@@ -11,7 +10,6 @@ import com.github.ant2.exceedvote.model.domain.Voter;
 public class LoginResult {
 	private Status status;
 	private Voter voter;
-	private User.Role role;
 
 	/**
 	 * The status of the login
@@ -43,7 +41,6 @@ public class LoginResult {
 	 *            the voter that is set
 	 */
 	public void setVoter(Voter voter) {
-		role = User.Role.VOTER;
 		this.voter = voter;
 	}
 
@@ -54,15 +51,6 @@ public class LoginResult {
 	 */
 	public Status getStatus() {
 		return status;
-	}
-
-	/**
-	 * Gets the user's role
-	 * 
-	 * @return the user's role
-	 */
-	public User.Role getRole() {
-		return role;
 	}
 
 	/**
