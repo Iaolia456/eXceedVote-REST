@@ -7,7 +7,7 @@ public class Messenger {
 		
 	}
 	
-	public Server getServer() {
+	public static Server getServer() {
 		return server;
 	}
 	

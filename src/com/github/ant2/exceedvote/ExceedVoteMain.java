@@ -31,14 +31,14 @@ public class ExceedVoteMain {
 		UIUtility.setTheme();
 
 		DaoFactory df = new RestDaoFactory();
+		Server server = new Server("http://localhost", 9000);
+		Messenger.setServer(server);
 
 		LoginProcess loginProcess = new LoginProcess(df);
 		LoginWindow window = new LoginWindow();
 
 		LoginController controller = new LoginController(loginProcess, window);
 		
-		Server server = new Server("APP_URL", 8888);
-		Messenger.setServer(server);
 		controller.run();
 
 	}
