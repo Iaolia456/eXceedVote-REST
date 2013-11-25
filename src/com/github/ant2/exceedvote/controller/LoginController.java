@@ -3,6 +3,8 @@ package com.github.ant2.exceedvote.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import com.github.ant2.exceedvote.activity.controller.WelcomeActivity;
 import com.github.ant2.exceedvote.activity.view.WelcomeActivityView;
 import com.github.ant2.exceedvote.model.process.Context;
@@ -62,6 +64,7 @@ public class LoginController {
 		displayLoginWindow();
 	}
 
+	//After login code here
 	private void doLogin() {
 		LoginResult result = process.login(window.getUsernameField().getText(),
 				new String(window.getPasswordField().getPassword()));
@@ -70,8 +73,10 @@ public class LoginController {
 			return;
 		}
 		// window.dispose();
-		window.setVisible(false);
-		startMain(result);
+		JOptionPane.showMessageDialog(window, "DIGEST auth sent to server. See console for server's response", "Loged in", JOptionPane.INFORMATION_MESSAGE);
+		return;
+		/*window.setVisible(false);
+		startMain(result);*/
 	}
 
 	private void displayLoginWindow() {
