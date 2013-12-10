@@ -2,7 +2,6 @@ package com.github.ant2.exceedvote.dao;
 
 import com.github.ant2.exceedvote.model.domain.Criterion;
 import com.github.ant2.exceedvote.model.domain.Vote;
-import com.github.ant2.exceedvote.model.domain.Voter;
 
 /**
  * The BallotDao class is responsible for retrieving and saving ballot objects

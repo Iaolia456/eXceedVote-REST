@@ -28,11 +28,6 @@ public class Messenger {
 		Messenger.server = server;
 	}
 	
-	//TODO snedMessage method
-	public static void sendMessage() {
-		
-	}
-	
 	public static WebResource createWebResource(String path) {
 		UriBuilder builder = UriBuilder.fromUri(server.getURL()).port(server.getPort());
 		URI uri = builder.build();
