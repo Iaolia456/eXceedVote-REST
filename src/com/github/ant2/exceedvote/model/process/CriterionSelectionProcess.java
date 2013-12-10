@@ -7,9 +7,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.github.ant2.exceedvote.dao.DaoFactory;
-import com.github.ant2.exceedvote.model.domain.Ballot;
 import com.github.ant2.exceedvote.model.domain.Criterion;
-import com.github.ant2.exceedvote.model.domain.VoteEvent;
+import com.github.ant2.exceedvote.model.domain.Vote;
 
 /**
  * A criterion selection process
@@ -21,7 +20,6 @@ public class CriterionSelectionProcess {
 	private Logger logger = LogManager
 			.getLogger(CriterionSelectionProcess.class);
 
-	private VoteEvent event;
 	private Context context;
 
 	private DaoFactory df;
@@ -34,7 +32,6 @@ public class CriterionSelectionProcess {
 	 */
 	public CriterionSelectionProcess(Context context) {
 		this.context = context;
-		event = context.getEvent();
 		df = context.getDaoFactory();
 	}
 
@@ -47,9 +44,9 @@ public class CriterionSelectionProcess {
 		if (criteria == null) {
 			logger.debug("Getting all criteria.");
 			List<CriterionInfo> info = new ArrayList<CriterionInfo>();
-			for (final Criterion c : df.getCriterionDao().findAllByEvent(event)) {
-				List<Ballot> ballots = df.getBallotDao().findAllByVoterAndCriterion(context.getVoter(), c);
-				final boolean isVoted = ballots.size() > 0;
+			for (final Criterion c : df.getCriterionDao().findAll()) {
+				Vote vote = df.getBallotDao().findAllByCriterion(c);
+				final boolean isVoted = vote.getVotedContestants().size() > 0;
 				info.add(new CriterionInfo() {
 					
 					@Override

@@ -1,10 +1,7 @@
 package com.github.ant2.exceedvote.dao;
 
-import java.util.List;
-
-import com.github.ant2.exceedvote.model.domain.Ballot;
 import com.github.ant2.exceedvote.model.domain.Criterion;
-import com.github.ant2.exceedvote.model.domain.VoteEvent;
+import com.github.ant2.exceedvote.model.domain.Vote;
 import com.github.ant2.exceedvote.model.domain.Voter;
 
 /**
@@ -13,7 +10,7 @@ import com.github.ant2.exceedvote.model.domain.Voter;
  * 
  * @author Thai Pangsakulyanont (dtinth)
  */
-public interface BallotDao {
+public interface VoteDao {
 
 	/**
 	 * Retrieves all ballots that the voter already voted for all project in
@@ -26,31 +23,14 @@ public interface BallotDao {
 	 * @return list of all ballots of this voter that voted for all project in
 	 *         this criterion
 	 */
-	List<Ballot> findAllByVoterAndCriterion(Voter voter, Criterion criterion);
+	Vote findAllByCriterion(Criterion criterion);
 
 	/**
 	 * Saves the ballot to persistent unit.
 	 * 
-	 * @param ballot
-	 *            the ballot needs to be saved
+	 * @param vote
+	 *            the vote needs to be saved
 	 */
-	void save(Ballot ballot);
-
-	/**
-	 * Removes the ballot from persistent unit.
-	 * 
-	 * @param ballot
-	 *            the ballot needs to be removed
-	 */
-	void remove(Ballot ballot);
-
-	/**
-	 * Finds all ballots inside an event.
-	 * 
-	 * @param event
-	 *            the event to search
-	 * @return list of ballots, by event
-	 */
-	List<Ballot> findAllByEvent(VoteEvent event);
+	void save(Vote vote);
 
 }

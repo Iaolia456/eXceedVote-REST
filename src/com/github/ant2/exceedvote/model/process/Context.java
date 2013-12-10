@@ -1,7 +1,6 @@
 package com.github.ant2.exceedvote.model.process;
 
 import com.github.ant2.exceedvote.dao.DaoFactory;
-import com.github.ant2.exceedvote.model.domain.VoteEvent;
 import com.github.ant2.exceedvote.model.domain.Voter;
 
 /**
@@ -11,8 +10,6 @@ import com.github.ant2.exceedvote.model.domain.Voter;
  * @author dtinth
  */
 public class Context {
-
-	private VoteEvent event;
 	private Voter voter;
 	private DaoFactory daoFactory;
 
@@ -32,9 +29,8 @@ public class Context {
 	 * @param voter
 	 *            the voter
 	 */
-	public Context(DaoFactory daoFactory, VoteEvent event, Voter voter) {
+	public Context(DaoFactory daoFactory, Voter voter) {
 		this.daoFactory = daoFactory;
-		setEvent(event);
 		setVoter(voter);
 	}
 
@@ -55,25 +51,6 @@ public class Context {
 	 */
 	public void setVoter(Voter voter) {
 		this.voter = voter;
-	}
-
-	/**
-	 * Returns the event.
-	 * 
-	 * @return the event
-	 */
-	public VoteEvent getEvent() {
-		return event;
-	}
-
-	/**
-	 * Sets the event.
-	 * 
-	 * @param event
-	 *            the event to set
-	 */
-	public void setEvent(VoteEvent event) {
-		this.event = event;
 	}
 
 	/**

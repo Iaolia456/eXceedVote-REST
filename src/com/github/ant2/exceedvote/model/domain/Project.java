@@ -13,14 +13,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="contestant")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Project implements VoteEvent.Part {
-	
+public class Project  {
+	private int id;
 	/** project name */
 	private String name;
 	/** project description */
 	private String description;
-
-	private VoteEvent voteEvent;
 
 	/**
 	 * Constructs a project with name and description.
@@ -81,13 +79,12 @@ public class Project implements VoteEvent.Part {
 	public String toString() {
 		return name;
 	}
-
-	@Override
-	public VoteEvent getVoteEvent() {
-		return voteEvent;
+	
+	public int getId() {
+		return id;
 	}
-
-	public void setVoteEvent(VoteEvent voteEvent) {
-		this.voteEvent = voteEvent;
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 }

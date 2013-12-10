@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-import com.github.ant2.exceedvote.model.domain.VoteEvent;
 import com.github.ant2.exceedvote.model.domain.Voter;
 import com.github.ant2.exceedvote.model.process.Context;
 import com.github.ant2.exceedvote.view.MainView;
@@ -24,7 +23,6 @@ public class MainController {
 	private MainView view;
 	private ActivitiesController panelController;
 	private Voter voter;
-	private VoteEvent event;
 	private Runnable logoutAction;
 
 	/**
@@ -38,7 +36,6 @@ public class MainController {
 	public MainController(Context context, MainView mainView) {
 		this.context = context;
 		voter = this.context.getVoter();
-		event = this.context.getEvent();
 		view = mainView;
 		panelController = new ActivitiesController(mainView.getMainPanel());
 		addListener();
@@ -68,10 +65,11 @@ public class MainController {
 		view.setVisible(true);
 		view.getNameInfoBox().setText(voter.getName());
 
-		Timer timer = new Timer(1000, new RemainingTimeUpdater());
+		//TODO remaining time of the event
+		/*Timer timer = new Timer(1000, new RemainingTimeUpdater());
 		timer.start();
 
-		updateRemainingTime();
+		updateRemainingTime();*/
 
 		panelController.runActivity(activity, Fx.STARFIELD);
 	}
@@ -87,9 +85,9 @@ public class MainController {
 
 	//TODO remaining time timer code here
 	private void updateRemainingTime() {
-		int remainingTime = (int) ((event.getFinishTime().getTimeInMillis() - System
-				.currentTimeMillis()) / 1000);
-		view.getRemainingTimeInfoBox().setText(formatTime(remainingTime));
+//		int remainingTime = (int) ((event.getFinishTime().getTimeInMillis() - System
+//				.currentTimeMillis()) / 1000);
+//		view.getRemainingTimeInfoBox().setText(formatTime(remainingTime));
 	}
 
 	private String formatTime(int timeLeft) {

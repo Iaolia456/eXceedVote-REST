@@ -73,10 +73,8 @@ public class LoginController {
 			return;
 		}
 		// window.dispose();
-		JOptionPane.showMessageDialog(window, "DIGEST auth sent to server. See console for server's response", "Loged in", JOptionPane.INFORMATION_MESSAGE);
-		return;
-		/*window.setVisible(false);
-		startMain(result);*/
+		window.setVisible(false);
+		startMain(result);
 	}
 
 	private void displayLoginWindow() {

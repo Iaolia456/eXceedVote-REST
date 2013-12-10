@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import com.github.ant2.exceedvote.dao.DaoFactory;
 import com.github.ant2.exceedvote.model.domain.Criterion;
 import com.github.ant2.exceedvote.model.domain.Project;
-import com.github.ant2.exceedvote.model.domain.VoteEvent;
 import com.github.ant2.exceedvote.model.domain.Voter;
 
 /**
@@ -21,7 +20,6 @@ import com.github.ant2.exceedvote.model.domain.Voter;
 public class VotingProcess {
 
 	private Logger logger = LogManager.getLogger(VotingProcess.class);
-	private VoteEvent event;
 	private Voter voter;
 	private Criterion criterion;
 	private int usedBallots;
@@ -39,14 +37,12 @@ public class VotingProcess {
 	public VotingProcess(Context context, Criterion criterion) {
 
 		this.context = context;
-		event = context.getEvent();
 		voter = context.getVoter();
 		this.criterion = criterion;
 		df = context.getDaoFactory();
 		a = new int[getProjects().size()];
 
-		Map<Project, Integer> map = new BallotRetriever(context, criterion)
-				.count();
+		Map<Project, Integer> map = new BallotRetriever(context, criterion).retrieve();
 		for (int i = 0; i < a.length; i++) {
 			Project project = getProjects().get(i);
 			if (map.containsKey(project)) {
@@ -76,7 +72,7 @@ public class VotingProcess {
 	public List<Project> getProjects() {
 		if (projects == null) {
 			logger.debug("Getting all projects.");
-			projects = df.getProjectDao().findAllByEvent(event);
+			projects = df.getProjectDao().findAll();
 		} else {
 			logger.debug("Already got all projects.");
 		}

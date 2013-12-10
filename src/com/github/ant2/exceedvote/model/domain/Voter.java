@@ -1,17 +1,23 @@
 package com.github.ant2.exceedvote.model.domain;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  * The Voter that represents a person that can vote.
  * 
  * @author Thiwat Rongsirigul (Leo Aiolia)
  */
-public class Voter implements VoteEvent.Part {
+@XmlRootElement(name="user")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Voter {
 
 	private String studentId;
+	@XmlElement(name="username")
 	private String name;
-
-	private VoteEvent voteEvent;
 
 	public Voter() {
 
@@ -56,30 +62,11 @@ public class Voter implements VoteEvent.Part {
 	}
 
 	/**
-	 * Returns the VoteEvent for this voter.
-	 * 
-	 * @return voteEvent the VoteEvent for this voter.
-	 */
-	@Override
-	public VoteEvent getVoteEvent() {
-		return voteEvent;
-	}
-
-	/**
-	 * Sets the VoteEvent for this voter.
-	 * 
-	 * @param voteEvent
-	 *            the VoteEvent that is going to be set.
-	 */
-	public void setVoteEvent(VoteEvent voteEvent) {
-		this.voteEvent = voteEvent;
-	}
-
-	/**
 	 * Returns the number of allowed ballots.
 	 * 
 	 * @return 3 the number of allowed ballots.
 	 */
+	//TODO allow ballot still hard code
 	public int getAllowedBallots() {
 		return 3;
 	}

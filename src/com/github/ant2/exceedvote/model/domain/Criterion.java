@@ -12,14 +12,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Artima Mahahemarat
  */
 
-@XmlRootElement
+@XmlRootElement(name="criterion")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Criterion implements VoteEvent.Part {
-	@XmlElement(name="name")
-	/** criterion name */
+public class Criterion {
+	private int id;
+	@XmlElement(name="question")
 	private String name;
-
-	private VoteEvent voteEvent;
+	private int type;
 
 	/**
 	 * Constructs a criterion.
@@ -44,18 +43,25 @@ public class Criterion implements VoteEvent.Part {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getType() {
+		return type;
+	}
+	
+	public void setType(int type) {
+		this.type = type;
+	}
 
 	@Override
 	public String toString() {
 		return name;
-	}
-
-	@Override
-	public VoteEvent getVoteEvent() {
-		return voteEvent;
-	}
-
-	public void setVoteEvent(VoteEvent voteEvent) {
-		this.voteEvent = voteEvent;
 	}
 }

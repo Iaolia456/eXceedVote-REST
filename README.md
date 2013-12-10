@@ -1,7 +1,7 @@
 eXceedVote
 ==========
 
-eXceed Vote Project for Software Specification and Design.
+REST eXceed Vote Project for Web Services.
 
 eXceed Vote is a software for voting projects in a "Software Development Training Camp" (called eXceed Camp).
 Our goal is to use the software to replace the old paper voting system,
@@ -13,8 +13,9 @@ The installation instructions is included in a file called INSTALL.md.
 
 Note
 ----
-This version of eXceedVote comes with an in-memory database, to make it easy for testing.
-Any changes you made while running this program will not be saved.
+This version of software is the smaller version of the original [eXceed Vote Project](https://github.com/ant2/eXceedVote).
+using RESTFUL web service to communicate with the RESTFUL eXceed Vote server.
+This version is not contain the commissioner's features and does not contain the database.
 
 For Developers
 --------------

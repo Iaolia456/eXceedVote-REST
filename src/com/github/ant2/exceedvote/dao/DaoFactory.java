@@ -8,20 +8,6 @@ package com.github.ant2.exceedvote.dao;
 public interface DaoFactory {
 
 	/**
-	 * Returns the EventDao object.
-	 * 
-	 * @return EventDao object
-	 */
-	EventDao getEventDao();
-
-	/**
-	 * Returns the VoterDao object.
-	 * 
-	 * @return VoterDao object
-	 */
-	VoterDao getVoterDao();
-
-	/**
 	 * Returns the CriterionDao object.
 	 * 
 	 * @return CriterionDao object
@@ -40,6 +26,6 @@ public interface DaoFactory {
 	 * 
 	 * @return BallotDao object
 	 */
-	BallotDao getBallotDao();
+	VoteDao getBallotDao();
 
 }
