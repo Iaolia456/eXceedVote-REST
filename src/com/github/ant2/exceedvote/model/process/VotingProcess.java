@@ -27,6 +27,7 @@ public class VotingProcess {
 	private DaoFactory df;
 	private List<Project> projects;
 	private Context context;
+	private VotingStrategy votingStrategy;
 
 	/**
 	 * @param context
@@ -42,15 +43,17 @@ public class VotingProcess {
 		df = context.getDaoFactory();
 		a = new int[getProjects().size()];
 
-		Map<Project, Integer> map = new BallotRetriever(context, criterion).retrieve();
+		Map<Integer, Integer> map = new BallotRetriever(context, criterion).retrieve();
 		for (int i = 0; i < a.length; i++) {
-			Project project = getProjects().get(i);
+			Integer project = getProjects().get(i).getId();
 			if (map.containsKey(project)) {
 				a[i] = map.get(project);
 				usedBallots += a[i];
 			}
 		}
-
+		
+		if (criterion.getType() == 1) votingStrategy = new BallotVoting(getProjects(), a, voter, usedBallots);
+		else votingStrategy = new ScoreVoting(getProjects(), a);
 	}
 
 	/**
@@ -84,9 +87,9 @@ public class VotingProcess {
 	 * 
 	 * @return true if used ballots are less than allowed, false otherwise
 	 */
-	public boolean canIncrease() {
+	public boolean canIncrease(Project project) {
 		logger.debug("Determine if used ballots are less than allowed.");
-		return usedBallots < voter.getAllowedBallots();
+		return votingStrategy.canIncrease(project);
 	}
 
 	/**
@@ -97,10 +100,8 @@ public class VotingProcess {
 	 * @return true if the project has been voted, false otherwise
 	 */
 	public boolean canDecrease(Project project) {
-		logger.debug("Getting index of project.");
-		int i = getProjects().indexOf(project);
 		logger.debug("Determine if project has ever been voted.");
-		return a[i] > 0;
+		return votingStrategy.canDecrease(project);
 	}
 
 	/**
@@ -110,7 +111,7 @@ public class VotingProcess {
 	 *            the project that is chosen
 	 */
 	public void increase(Project project) {
-		if (!canIncrease()) {
+		if (!canIncrease(project)) {
 			logger.debug("Project cannot be increased!");
 			return;
 		}
@@ -120,6 +121,7 @@ public class VotingProcess {
 		logger.debug("Adding project count and used ballots.");
 		a[i]++;
 		usedBallots++;
+		votingStrategy.update(a, usedBallots);
 	}
 
 	/**
@@ -153,6 +155,7 @@ public class VotingProcess {
 		logger.debug("Reducing project count and used ballots.");
 		a[i]--;
 		usedBallots--;
+		votingStrategy.update(a, usedBallots);
 	}
 
 	/**
@@ -201,5 +204,8 @@ public class VotingProcess {
 		logger.debug("Retrieving allowed ballots.");
 		return voter.getAllowedBallots();
 	}
-
+	
+	public VotingStrategy getVotingStrategy() {
+		return votingStrategy;
+	}
 }

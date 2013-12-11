@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ContestantScore {
 	@XmlElement(name="id")
 	private int projectId;
+	private String name;
 	private int score;
 	
 	public ContestantScore() {
@@ -30,5 +31,13 @@ public class ContestantScore {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 }

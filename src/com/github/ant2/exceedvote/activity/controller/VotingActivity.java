@@ -8,6 +8,7 @@ import java.util.List;
 import com.github.ant2.exceedvote.activity.view.ProjectVoteView;
 import com.github.ant2.exceedvote.activity.view.VotingActivityView;
 import com.github.ant2.exceedvote.model.domain.Project;
+import com.github.ant2.exceedvote.model.process.BallotVoting;
 import com.github.ant2.exceedvote.model.process.VotingProcess;
 import com.github.ant2.ui.activity.Activity;
 import com.github.ant2.ui.activity.Fx;
@@ -57,7 +58,7 @@ public class VotingActivity extends
 			int count = process.getCount(project);
 			view.setCountLabelText(count + "");
 			view.getSubtractButton().setVisible(process.canDecrease(project));
-			view.getAddButton().setEnabled(process.canIncrease());
+			view.getAddButton().setEnabled(process.canIncrease(project));
 		}
 
 	}
@@ -100,14 +101,22 @@ public class VotingActivity extends
 	}
 
 	private void updateAllCount() {
+		if (process.getVotingStrategy().getClass() == BallotVoting.class) {
+			String text = String.format(
+					"<html>You have used <b>%d</b> out of <b>%d</b> ballots.",
+					process.getUsedBallots(), process.getTotalBallots());
+			view.setBallotLeftLabelText(text);
 
-		String text = String.format(
-				"<html>You have used <b>%d</b> out of <b>%d</b> ballots.",
-				process.getUsedBallots(), process.getTotalBallots());
-		view.setBallotLeftLabelText(text);
+			for (ProjectVoteViewController controller : voteViewControllers) {
+				controller.updateCount();
+			}
+		}
+		else {
+			view.setBallotLeftLabelText("");
 
-		for (ProjectVoteViewController controller : voteViewControllers) {
-			controller.updateCount();
+			for (ProjectVoteViewController controller : voteViewControllers) {
+				controller.updateCount();
+			}
 		}
 
 	}

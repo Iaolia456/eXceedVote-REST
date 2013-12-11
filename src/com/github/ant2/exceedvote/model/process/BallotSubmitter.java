@@ -6,6 +6,7 @@ import com.github.ant2.exceedvote.dao.VoteDao;
 import com.github.ant2.exceedvote.dao.DaoFactory;
 import com.github.ant2.exceedvote.model.domain.Criterion;
 import com.github.ant2.exceedvote.model.domain.Project;
+import com.github.ant2.exceedvote.model.domain.Question;
 import com.github.ant2.exceedvote.model.domain.Vote;
 import com.github.ant2.exceedvote.model.domain.Voter;
 
@@ -44,9 +45,12 @@ public class BallotSubmitter {
 		VoteDao ballotDao = df.getBallotDao();
 
 		Voter voter = context.getVoter();
+		Question q = new Question();
+		q.setId(criterion.getId());
+		q.setName(criterion.getName());
 
 		Vote vote = new Vote();
-		vote.setVote(1, criterion, voter, map);
+		vote.setVote(1, q, voter, map);
 		ballotDao.save(vote);
 	}
 

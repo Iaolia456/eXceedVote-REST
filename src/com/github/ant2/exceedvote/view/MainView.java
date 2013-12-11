@@ -32,7 +32,7 @@ public class MainView extends JFrame {
 	 */
 	public MainView() {
 		super("eXceed Vote");
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		setSize(720, 680);
 		initComponents();

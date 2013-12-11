@@ -1,11 +1,24 @@
 package com.github.ant2.exceedvote.dao.restful;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
-import com.github.ant2.exceedvote.dao.*;
-import com.github.ant2.exceedvote.model.domain.*;
+import com.github.ant2.exceedvote.dao.CriterionDao;
+import com.github.ant2.exceedvote.dao.DaoFactory;
+import com.github.ant2.exceedvote.dao.ProjectDao;
+import com.github.ant2.exceedvote.dao.VoteDao;
+import com.github.ant2.exceedvote.model.domain.ContestantScore;
+import com.github.ant2.exceedvote.model.domain.Contestants;
+import com.github.ant2.exceedvote.model.domain.Criteria;
+import com.github.ant2.exceedvote.model.domain.Criterion;
+import com.github.ant2.exceedvote.model.domain.Project;
+import com.github.ant2.exceedvote.model.domain.Question;
+import com.github.ant2.exceedvote.model.domain.Vote;
 import com.github.ant2.exceedvote.model.server.Messenger;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
@@ -26,8 +39,10 @@ public class RestDaoFactory implements DaoFactory{
 		@Override
 		public List<Criterion> findAll() {
 			WebResource res = Messenger.createWebResource("api/v1/criterion");
-			List<Criterion> criteria = res.accept(MediaType.APPLICATION_XML).get( new GenericType<List<Criterion>>() { });
-			return criteria;
+			Criteria criteria = res.accept(MediaType.APPLICATION_XML).get( Criteria.class );
+			System.out.println("criteria " + criteria);
+			System.out.println("criteria list " + criteria.getCriteria());
+			return criteria.getCriteria();
 		}
 	}
 
@@ -53,16 +68,34 @@ public class RestDaoFactory implements DaoFactory{
 		@Override
 		public Vote findAllByCriterion(Criterion criterion) {
 			WebResource res = Messenger.createWebResource("api/v1/myvote/1");
-			MyVote myVote = res.accept(MediaType.APPLICATION_XML).get(MyVote.class);
-			for (Vote v : myVote.getVotes()) {
-				if(v.getCriterion() == criterion) return v;
-			}
-			return null;
+			
+			Vote myVote = res.accept(MediaType.APPLICATION_XML).get(Vote.class);
+
+			Question q = new Question();
+			q.setId(criterion.getId());
+			q.setName(criterion.getName());
+			
+			if(myVote.getQuestion().getName().equals(q.getName())) return myVote;
+			Contestants c = new Contestants();
+			c.setContestants(new ArrayList<ContestantScore>());
+			myVote.setVotedContestants(c);
+			return myVote;
 		}
 
 		@Override
 		public void save(Vote vote) {
-			WebResource res = Messenger.createWebResource("api/v1/criterion/"+vote.getCriterion().getId()+"/vote");
+			System.out.println(vote.getQuestion().getId());
+			WebResource res = Messenger.createWebResource("api/v1/criterion/"+vote.getQuestion().getId()+"/vote");
+			
+			//TODO vote submit marshal result test code
+			JAXBContext jc;
+			try {
+				jc = JAXBContext.newInstance(Vote.class);
+		        Marshaller mar = jc.createMarshaller();
+		        mar.marshal(vote, System.out);
+			} catch (JAXBException e) {
+				e.printStackTrace();
+			}
 			ClientResponse resp = res.type(MediaType.APPLICATION_XML).post(ClientResponse.class, vote);
 			System.out.println("casted vote, server return: " + resp.getStatus());
 		}

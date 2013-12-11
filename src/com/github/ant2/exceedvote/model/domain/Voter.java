@@ -3,7 +3,6 @@ package com.github.ant2.exceedvote.model.domain;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 
 /**
@@ -11,16 +10,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  * @author Thiwat Rongsirigul (Leo Aiolia)
  */
-@XmlRootElement(name="user")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Voter {
-
+	@XmlElement(name="id")
 	private String studentId;
 	@XmlElement(name="username")
 	private String name;
 
 	public Voter() {
-
+		//TODO missing id when POST (probably server didn't send when logged in)
 	}
 
 	/**
@@ -68,7 +66,7 @@ public class Voter {
 	 */
 	//TODO allow ballot still hard code
 	public int getAllowedBallots() {
-		return 3;
+		return 30;
 	}
 
 	/**

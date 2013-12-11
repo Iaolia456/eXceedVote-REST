@@ -1,7 +1,5 @@
 package com.github.ant2.exceedvote.model.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,21 +8,21 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement()
+@XmlRootElement(name="vote")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Vote {
 	private int id;
-	private Criterion criterion;
-	@XmlElement(name="username")
+	private Question criterion;
+	@XmlElement(name="user")
 	private Voter voter;
 	@XmlElement(name="contestants")
-	List<ContestantScore> votedContestants;
+	private Contestants votedContestant;
 	
 	public Vote() {
-		votedContestants = new ArrayList<ContestantScore>();
+		//TODO cannot handle multiple <vote> in one file (when using /myvote)
 	}
 	
-	public void setVote(int id, Criterion criterion, Voter voter,
+	public void setVote(int id, Question criterion, Voter voter,
 			Map<Project, Integer> map) {
 		this.id = id;
 		this.criterion = criterion;
@@ -32,11 +30,13 @@ public class Vote {
 		
 		Set<Project> p = map.keySet();
 		Project[] projects = p.toArray(new Project[map.size()]);
+		votedContestant = new Contestants();
 		for (int i=0; i<map.size(); i++) {
 			ContestantScore score = new ContestantScore();
 			score.setProjectId(projects[i].getId());
+			score.setName(projects[i].getName());
 			score.setScore(map.get(projects[i]).intValue());
-			votedContestants.add(score);
+			votedContestant.getContestants().add(score);
 		}
 	}
 
@@ -48,11 +48,11 @@ public class Vote {
 		this.id = id;
 	}
 
-	public Criterion getCriterion() {
+	public Question getQuestion() {
 		return criterion;
 	}
 
-	public void setCriterion(Criterion criterion) {
+	public void setQuestion(Question criterion) {
 		this.criterion = criterion;
 	}
 
@@ -64,11 +64,11 @@ public class Vote {
 		this.voter = voter;
 	}
 
-	public List<ContestantScore> getVotedContestants() {
-		return votedContestants;
+	public Contestants getVotedContestants() {
+		return votedContestant;
 	}
-
-	public void setVotedContestants(List<ContestantScore> votedContestants) {
-		this.votedContestants = votedContestants;
+	
+	public void setVotedContestants(Contestants contestants) {
+		this.votedContestant = contestants;
 	}
 }
