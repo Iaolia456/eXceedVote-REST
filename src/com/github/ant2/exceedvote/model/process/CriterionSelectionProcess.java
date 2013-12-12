@@ -45,8 +45,8 @@ public class CriterionSelectionProcess {
 			logger.debug("Getting all criteria.");
 			List<CriterionInfo> info = new ArrayList<CriterionInfo>();
 			for (final Criterion c : df.getCriterionDao().findAll()) {
-				Vote vote = df.getBallotDao().findAllByCriterion(c);
-				final boolean isVoted = vote.getVotedContestants().getContestants().size() > 0;
+				List<Vote> vote = df.getBallotDao().findAllByCriterion(c);
+				final boolean isVoted = vote.size() != 0;
 				info.add(new CriterionInfo() {
 					
 					@Override

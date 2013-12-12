@@ -1,5 +1,7 @@
 package com.github.ant2.exceedvote.dao;
 
+import java.util.List;
+
 import com.github.ant2.exceedvote.model.domain.Criterion;
 import com.github.ant2.exceedvote.model.domain.Vote;
 
@@ -22,7 +24,7 @@ public interface VoteDao {
 	 * @return list of all ballots of this voter that voted for all project in
 	 *         this criterion
 	 */
-	Vote findAllByCriterion(Criterion criterion);
+	List<Vote> findAllByCriterion(Criterion criterion);
 
 	/**
 	 * Saves the ballot to persistent unit.
@@ -30,6 +32,6 @@ public interface VoteDao {
 	 * @param vote
 	 *            the vote needs to be saved
 	 */
-	void save(Vote vote);
+	void save(List<Vote> vote);
 
 }

@@ -1,12 +1,15 @@
 package com.github.ant2.exceedvote.model.process;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-import com.github.ant2.exceedvote.dao.VoteDao;
 import com.github.ant2.exceedvote.dao.DaoFactory;
+import com.github.ant2.exceedvote.dao.VoteDao;
+import com.github.ant2.exceedvote.model.domain.ContestantScore;
 import com.github.ant2.exceedvote.model.domain.Criterion;
 import com.github.ant2.exceedvote.model.domain.Project;
-import com.github.ant2.exceedvote.model.domain.Question;
 import com.github.ant2.exceedvote.model.domain.Vote;
 import com.github.ant2.exceedvote.model.domain.Voter;
 
@@ -45,13 +48,25 @@ public class BallotSubmitter {
 		VoteDao ballotDao = df.getBallotDao();
 
 		Voter voter = context.getVoter();
-		Question q = new Question();
+		Criterion q = new Criterion();
 		q.setId(criterion.getId());
 		q.setName(criterion.getName());
-
-		Vote vote = new Vote();
-		vote.setVote(1, q, voter, map);
-		ballotDao.save(vote);
+		
+		Set<Project> p = map.keySet();
+		Project[] projects = p.toArray(new Project[map.size()]);
+		List<Vote> votes = new ArrayList<Vote>();
+		for (int i=0; i<map.size(); i++) {
+			Vote vote = new Vote();
+			ContestantScore score = new ContestantScore();
+			score.setProjectId(projects[i].getId());
+			score.setName(projects[i].getName());
+			score.setScore(map.get(projects[i]).intValue());
+			
+			vote.setVote(1, q, voter, score);
+			votes.add(vote);
+		}
+		
+		ballotDao.save(votes);
 	}
 
 }

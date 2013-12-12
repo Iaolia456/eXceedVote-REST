@@ -9,6 +9,7 @@ import com.github.ant2.exceedvote.model.server.Messenger;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.filter.HTTPDigestAuthFilter;
+import com.sun.jersey.api.client.filter.LoggingFilter;
 
 /**
  * A login process
@@ -37,11 +38,11 @@ public class LoginProcess {
 	 */
 	//TODO login code here
 	public LoginResult login(String user, String password) {
-		//Messenger.getClient().addFilter(new LoggingFilter(System.out));
+		Messenger.getClient().addFilter(new LoggingFilter(System.out));
 		HTTPDigestAuthFilter authFilter = new HTTPDigestAuthFilter(user, password);
 		Messenger.getClient().addFilter(authFilter);
 		
-		WebResource res = Messenger.createWebResource("api/v1/contestant");
+		WebResource res = Messenger.createWebResource("exceedvote/api/v1/contestant");
 		ClientResponse resp = null;
 		try {
 			resp = res.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);

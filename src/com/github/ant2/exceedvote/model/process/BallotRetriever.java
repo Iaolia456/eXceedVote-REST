@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.ant2.exceedvote.dao.VoteDao;
-import com.github.ant2.exceedvote.model.domain.ContestantScore;
 import com.github.ant2.exceedvote.model.domain.Criterion;
+import com.github.ant2.exceedvote.model.domain.Vote;
 
 /**
  * BallotRetriever retrieves the ballot count from the database, makes it easier
@@ -40,9 +40,9 @@ public class BallotRetriever {
 	public Map<Integer, Integer> retrieve() {
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		VoteDao ballotDao = context.getDaoFactory().getBallotDao();
-		List<ContestantScore> score = ballotDao.findAllByCriterion(criterion).getVotedContestants().getContestants();
-		for (ContestantScore s : score) {
-			map.put(s.getProjectId(), s.getScore());
+		List<Vote> vote = ballotDao.findAllByCriterion(criterion);
+		for (Vote v : vote) {
+			map.put(v.getVotedContestant().getProjectId(), v.getVotedContestant().getScore());
 		}
 		return map;
 	}

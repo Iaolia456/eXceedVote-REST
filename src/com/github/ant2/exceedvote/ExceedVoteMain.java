@@ -31,6 +31,7 @@ public class ExceedVoteMain {
 		UIUtility.setTheme();
 
 		DaoFactory df = new RestDaoFactory();
+		//Server server = new Server("http://158.108.228.54", 8080);
 		Server server = new Server("http://localhost", 9000);
 		Messenger.setServer(server);
 

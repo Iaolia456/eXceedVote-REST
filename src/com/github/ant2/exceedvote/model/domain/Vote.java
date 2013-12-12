@@ -1,8 +1,5 @@
 package com.github.ant2.exceedvote.model.domain;
 
-import java.util.Map;
-import java.util.Set;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -12,32 +9,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Vote {
 	private int id;
-	private Question criterion;
+	private Criterion criterion;
 	@XmlElement(name="user")
 	private Voter voter;
-	@XmlElement(name="contestants")
-	private Contestants votedContestant;
+	@XmlElement(name="contestant")
+	private ContestantScore votedContestant;
 	
 	public Vote() {
-		//TODO cannot handle multiple <vote> in one file (when using /myvote)
+		
 	}
 	
-	public void setVote(int id, Question criterion, Voter voter,
-			Map<Project, Integer> map) {
+	public void setVote(int id, Criterion criterion, Voter voter,
+			ContestantScore score) {
 		this.id = id;
 		this.criterion = criterion;
 		this.voter = voter;
 		
-		Set<Project> p = map.keySet();
+		/*Set<Project> p = map.keySet();
 		Project[] projects = p.toArray(new Project[map.size()]);
-		votedContestant = new Contestants();
-		for (int i=0; i<map.size(); i++) {
-			ContestantScore score = new ContestantScore();
-			score.setProjectId(projects[i].getId());
-			score.setName(projects[i].getName());
-			score.setScore(map.get(projects[i]).intValue());
-			votedContestant.getContestants().add(score);
-		}
+		for (int i=0; i<map.size(); i++) {*/
+//			ContestantScore score = new ContestantScore();
+//			score.setProjectId(projects[i].getId());
+//			score.setName(projects[i].getName());
+//			score.setScore(map.get(projects[i]).intValue());
+			this.votedContestant = score;
+		//}
 	}
 
 	public int getId() {
@@ -48,11 +44,11 @@ public class Vote {
 		this.id = id;
 	}
 
-	public Question getQuestion() {
+	public Criterion getCriterion() {
 		return criterion;
 	}
 
-	public void setQuestion(Question criterion) {
+	public void setCriterion(Criterion criterion) {
 		this.criterion = criterion;
 	}
 
@@ -64,11 +60,11 @@ public class Vote {
 		this.voter = voter;
 	}
 
-	public Contestants getVotedContestants() {
+	public ContestantScore getVotedContestant() {
 		return votedContestant;
 	}
 	
-	public void setVotedContestants(Contestants contestants) {
+	public void setVotedContestant(ContestantScore contestants) {
 		this.votedContestant = contestants;
 	}
 }
