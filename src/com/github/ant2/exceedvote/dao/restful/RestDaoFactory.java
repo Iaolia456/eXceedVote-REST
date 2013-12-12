@@ -65,21 +65,24 @@ public class RestDaoFactory implements DaoFactory{
 		@Override
 		public List<Vote> findAllByCriterion(Criterion criterion) {
 			WebResource res = Messenger.createWebResource("exceedvote/api/v1/myvote");
-			//TODO cannot handle multiple <vote> in one file (when using /myvote)
-			MyVote myVote = res.accept(MediaType.APPLICATION_XML).get(MyVote.class);
-			//Vote votes = res.accept(MediaType.APPLICATION_XML).get(Vote.class);
-			Vote vote = new Vote();
-			List<Vote> matchedVote = new ArrayList<Vote>();
-			for (Vote v : myVote.getVotes()) {
-				if (v.getCriterion().getName().equals(criterion.getName())) {
-					matchedVote.add(v);
-				}
+			ClientResponse resp = res.accept(MediaType.APPLICATION_XML).get(ClientResponse.class);
+			if (resp.getStatus() == 204) {
+				return new ArrayList<Vote>();
 			}
-			
-			ContestantScore c = new ContestantScore();
-			vote.setVotedContestant(c);
-			//if(matchedVote.size() == 0) matchedVote.add(vote);
-			return matchedVote;
+			else {
+				MyVote myVote = resp.getEntity(MyVote.class);
+				Vote vote = new Vote();
+				List<Vote> matchedVote = new ArrayList<Vote>();
+				for (Vote v : myVote.getVotes()) {
+					if (v.getCriterion().getName().equals(criterion.getName())) {
+						matchedVote.add(v);
+					}
+				}
+				
+				ContestantScore c = new ContestantScore();
+				vote.setVotedContestant(c);
+				return matchedVote;
+			}
 		}
 
 		@Override

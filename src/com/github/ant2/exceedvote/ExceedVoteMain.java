@@ -32,7 +32,7 @@ public class ExceedVoteMain {
 
 		DaoFactory df = new RestDaoFactory();
 		//Server server = new Server("http://158.108.228.54", 8080);
-		Server server = new Server("http://localhost", 9000);
+		Server server = new Server("http://158.108.237.10", 9000);
 		Messenger.setServer(server);
 
 		LoginProcess loginProcess = new LoginProcess(df);
