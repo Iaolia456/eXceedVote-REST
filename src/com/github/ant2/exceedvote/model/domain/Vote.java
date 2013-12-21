@@ -5,6 +5,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Individual vote to a specific contestant and criterion
+ *
+ * @author Thiwat Rongsirigul (Leo Aiolia)
+ */
 @XmlRootElement(name="vote")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Vote {
@@ -19,21 +24,20 @@ public class Vote {
 		
 	}
 	
+	/**
+	 * Set the score of this vote object
+	 * This method is use in constructing the vote to submit to server
+	 * @param id id of this vote object
+	 * @param criterion criterion that this vote is voted for
+	 * @param voter the person who vote
+	 * @param score a score given to the contestant
+	 */
 	public void setVote(int id, Criterion criterion, Voter voter,
 			ContestantScore score) {
 		this.id = id;
 		this.criterion = criterion;
 		this.voter = voter;
-		
-		/*Set<Project> p = map.keySet();
-		Project[] projects = p.toArray(new Project[map.size()]);
-		for (int i=0; i<map.size(); i++) {*/
-//			ContestantScore score = new ContestantScore();
-//			score.setProjectId(projects[i].getId());
-//			score.setName(projects[i].getName());
-//			score.setScore(map.get(projects[i]).intValue());
-			this.votedContestant = score;
-		//}
+		this.votedContestant = score;
 	}
 
 	public int getId() {

@@ -33,7 +33,7 @@ public class BallotRetriever {
 	}
 
 	/**
-	 * Retrieves the map of ballot from project -> ballot.
+	 * Retrieves the map of voted contestant
 	 * 
 	 * @return the map
 	 */

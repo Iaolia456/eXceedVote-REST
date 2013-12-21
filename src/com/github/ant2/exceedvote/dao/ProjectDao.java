@@ -19,5 +19,10 @@ public interface ProjectDao {
 	 */
 	List<Project> findAll();
 
+	/**
+	 * Returns project with matched id
+	 * @param id project id
+	 * @return project with id (id)
+	 */
 	Project findById(int id);
 }

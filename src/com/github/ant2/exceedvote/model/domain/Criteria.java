@@ -8,6 +8,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Root element of all of criteria info fetched from server
+ *
+ * @author Thiwat Rongsirigul (Leo Aiolia)
+ */
 @XmlRootElement(name="criteria")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Criteria {

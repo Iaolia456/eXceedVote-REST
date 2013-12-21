@@ -8,6 +8,12 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Used in constructing the XML to matched the server's api
+ * A wrapper class of votes casted by voter
+ *
+ * @author Thiwat Rongsirigul (Leo Aiolia)
+ */
 @XmlRootElement(name="vote")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class VoteToSubmit {

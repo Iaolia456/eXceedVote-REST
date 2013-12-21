@@ -21,6 +21,11 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 
+/**
+ * A Dao factory for RESTful api
+ *
+ * @author Thiwat Rongsirigul (Leo Aiolia)
+ */
 public class RestDaoFactory implements DaoFactory{
 	private CriterionDao criterionDao;
 	private ProjectDao projectDao;
@@ -32,6 +37,11 @@ public class RestDaoFactory implements DaoFactory{
 		ballotDao = new RestVoteDao();
 	}
 
+	/**
+	 * See @CriterionDao
+	 *
+	 * @author Thiwat Rongsirigul (Leo Aiolia)
+	 */
 	private class RestCriterionDao implements CriterionDao {
 		@Override
 		public List<Criterion> findAll() {
@@ -43,6 +53,11 @@ public class RestDaoFactory implements DaoFactory{
 		}
 	}
 
+	/**
+	 * See @ProjectDao
+	 *
+	 * @author Thiwat Rongsirigul (Leo Aiolia)
+	 */
 	private class RestProjectDao implements	ProjectDao {
 		@Override
 		public List<Project> findAll() {
@@ -61,6 +76,11 @@ public class RestDaoFactory implements DaoFactory{
 		}
 	}
 
+	/**
+	 * See @VoteDao
+	 *
+	 * @author Thiwat Rongsirigul (Leo Aiolia)
+	 */
 	private class RestVoteDao implements VoteDao {
 		@Override
 		public List<Vote> findAllByCriterion(Criterion criterion) {
@@ -87,21 +107,6 @@ public class RestDaoFactory implements DaoFactory{
 
 		@Override
 		public void save(List<Vote> votes) {
-			//TODO still use hacky string building, due to the emergency api change.
-			/*StringBuilder builder = new StringBuilder();
-			builder.append("<vote>");
-			builder.append("<contestants>");
-			
-			for (Vote v : votes) {
-				builder.append("<contestant>");
-				builder.append("<id>"+v.getVotedContestant().getProjectId()+"</id>");
-				builder.append("<score>"+v.getVotedContestant().getScore()+"</score>");
-				builder.append("</contestant>");
-			}
-			
-			builder.append("</contestants>");
-			builder.append("</vote>");*/
-			
 			WebResource res = Messenger.createWebResource("exceedvote/api/v1/criterion/"+votes.get(0).getCriterion().getId()+"/vote");
 			
 			VoteToSubmit submitVote = new VoteToSubmit();
@@ -111,16 +116,25 @@ public class RestDaoFactory implements DaoFactory{
 		}
 	}
 
+	/**
+	 * See @DaoFactory
+	 */
 	@Override
 	public CriterionDao getCriterionDao() {
 		return criterionDao;
 	}
 
+	/**
+	 * See @DaoFactory
+	 */
 	@Override
 	public ProjectDao getProjectDao() {
 		return projectDao;
 	}
 
+	/**
+	 * See @DaoFactory
+	 */
 	@Override
 	public VoteDao getBallotDao() {
 		return ballotDao;

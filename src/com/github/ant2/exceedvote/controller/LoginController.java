@@ -14,8 +14,8 @@ import com.github.ant2.ui.activity.Activity;
 
 /**
  * A controller that controls the login process.
- * 
- * @author Iaolia456
+ *
+ * @author Thiwat Rongsirigul (Leo Aiolia)
  */
 public class LoginController {
 

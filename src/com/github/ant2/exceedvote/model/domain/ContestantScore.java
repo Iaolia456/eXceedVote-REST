@@ -5,6 +5,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Individual score for one contestant
+ *
+ * @author Thiwat Rongsirigul (Leo Aiolia)
+ */
 @XmlRootElement(name="contestant")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ContestantScore {

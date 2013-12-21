@@ -7,6 +7,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Root element that wrapped the "vote" information
+ *
+ * @author Thiwat Rongsirigul (Leo Aiolia)
+ */
 @XmlRootElement(name="myvote")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MyVote {
